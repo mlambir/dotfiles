@@ -1,26 +1,32 @@
-source .zsh/antigen.zsh
+# load zgen
+source ".zsh/zgen.zsh"
 
-# Load the oh-my-zsh's library.
-antigen use oh-my-zsh
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-antigen bundle git
-antigen bundle virtualenv
-antigen bundle virtualenvwrapper
-antigen bundle python
-antigen bundle pip
-antigen bundle nvm
-antigen bundle npm
-antigen bundle autojump
+if ! zgen saved; then
 
-# Syntax highlighting bundle.
-antigen bundle zsh-users/zsh-syntax-highlighting
+  # Load the oh-my-zsh's library.
+  zgen oh-my-zsh
 
-# Load the theme.
-antigen theme robbyrussell
 
-# Tell antigen that you're done.
-antigen apply
+  # Bundles from the default repo (robbyrussell's oh-my-zsh).
+  zgen oh-my-zsh plugins/git
+  zgen oh-my-zsh plugins/virtualenv
+  zgen oh-my-zsh plugins/virtualenvwrapper
+  zgen oh-my-zsh plugins/python
+  zgen oh-my-zsh plugins/pip
+  zgen oh-my-zsh plugins/nvm
+  zgen oh-my-zsh plugins/npm
+  zgen oh-my-zsh plugins/autojump
+
+  # Syntax highlighting bundle.
+  zgen load zsh-users/zsh-syntax-highlighting
+  zgen load zsh-users/zsh-completions
+  
+  zgen load zsh-users/zsh-completions
+  zgen load caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+
+  zgen save
+fi
 
 export TERM=xterm-256color
 
