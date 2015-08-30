@@ -1,5 +1,5 @@
 # load zgen
-source ".zsh/zgen.zsh"
+source "${HOME}/.zsh/zgen.zsh"
 
 
 if ! zgen saved; then
