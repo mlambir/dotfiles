@@ -1,14 +1,18 @@
-call plug#begin('~/.nvim/plugged')
+let g:python_host_prog='/usr/bin/python2'
+
+call plug#begin('~/.config/nvim/plugged')
 
   Plug 'tpope/vim-sensible'
+  Plug 'tpope/vim-fugitive'
   Plug 'kien/ctrlp.vim'
   Plug 'bling/vim-airline'
   Plug 'freeo/vim-kalisi'
 
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
+  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
   Plug 'davidhalter/jedi-vim'
+  Plug 'rust-lang/rust'
 call plug#end()
 
 if has('autocmd')
@@ -214,6 +218,8 @@ nnoremap <Leader>f :CtrlPMRUFiles<CR>
 
 "NerdTree
 nnoremap <leader>n :NERDTreeToggle<CR>
+
+let NERDTreeIgnore = ["\.pyc$"]
 
 " Colorscheme
 colorscheme kalisi

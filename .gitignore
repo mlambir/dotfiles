@@ -1,1 +1,2 @@
-nvim/.nvim/plugged/**
+nvim/.config/nvim/plugged/**
+nvim/.config/nvim/shada/**
