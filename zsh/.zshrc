@@ -36,6 +36,3 @@ export TERM=xterm-256color
 export JAVA_HOME='/usr/lib/jvm/java-7-openjdk-amd64/jre'
 export EC2_HOME='/usr/local/ec2/ec2-api-tools-1.7.5.1'
 export PATH=$PATH:$EC2_HOME/bin
-
-export AWS_ACCESS_KEY='AKIAJVG2OLL5L3TPFTWA'
-export AWS_SECRET_KEY='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'
