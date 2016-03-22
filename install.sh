@@ -30,6 +30,7 @@ popd
 sudo apt install -y stow
 stow nvim
 stow zsh
+stow tmux
 
 #zsh
 sudo apt install -y zsh
