@@ -6,13 +6,18 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'kien/ctrlp.vim'
   Plug 'bling/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
   Plug 'freeo/vim-kalisi'
 
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
   Plug 'davidhalter/jedi-vim'
-  Plug 'rust-lang/rust'
+
+  Plug 'elixir-lang/vim-elixir'
+  Plug 'slashmili/alchemist.vim'
+  Plug 'larrylv/ycm-elixir'
+
 call plug#end()
 
 if has('autocmd')
@@ -70,7 +75,7 @@ let mapleader="\<SPACE>"
 
   set noerrorbells        " No beeps.
   set modeline            " Enable modeline.
-  set esckeys             " Cursor keys in insert mode.
+  "set esckeys             " Cursor keys in insert mode.
   set linespace=0         " Set line-spacing to minimum.
   set nojoinspaces        " Prevents inserting two spaces after punctuation on a join (J)
 
@@ -110,7 +115,7 @@ let mapleader="\<SPACE>"
   endif
 
   set autoread            " If file updates, load automatically.
-  set autochdir           " Switch to current file's parent directory.
+  "set autochdir           " Switch to current file's parent directory.
 
   " Remove special characters for filename
   set isfname-=:
