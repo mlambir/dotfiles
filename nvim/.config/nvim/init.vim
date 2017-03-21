@@ -9,9 +9,13 @@ call plug#begin('~/.config/nvim/plugged')
   Plug 'vim-airline/vim-airline-themes'
   Plug 'freeo/vim-kalisi'
 
+
   Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'Xuyuanp/nerdtree-git-plugin'
+  Plug 'ervandew/supertab'
   Plug 'Valloric/YouCompleteMe', { 'do': './install.sh' }
+  Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' " Group dependencies, vim-snippets depends on ultisnips, snippets
+  
   Plug 'davidhalter/jedi-vim'
 
   Plug 'elixir-lang/vim-elixir'
@@ -229,5 +233,15 @@ let NERDTreeIgnore = ["\.pyc$"]
 " Colorscheme
 colorscheme kalisi
 set background=dark
+
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " vim:set ft=vim sw=2 ts=2:
