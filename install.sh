@@ -39,6 +39,18 @@ chsh -s /bin/zsh
 #misc packages
 sudo apt install -y curl openjdk-8-jdk 
 
+# bspwm
+BSPWM_INSTALL_DIR=~/soft/bspwm
+sudo apt-get install xcb libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev gcc make rxvt-unicode-256color dmenu
+git clone https://github.com/baskerville/bspwm.git $BSPWM_INSTALL_DIR/bspwm
+git clone https://github.com/baskerville/sxhkd.git $BSPWM_INSTALL_DIR/sxhkd
+git clone https://github.com/baskerville/xdo.git $BSPWM_INSTALL_DIR/xdo
+git clone https://github.com/baskerville/sutils.git $BSPWM_INSTALL_DIR/sutils
+git clone https://github.com/baskerville/xtitle.git $BSPWM_INSTALL_DIR/xtitle
+git clone https://github.com/LemonBoy/bar.git $BSPWM_INSTALL_DIR/bar
+sudo cp $BSPWM_INSTALL_DIR/bspwm/contrib/freedesktop/bspwm.desktop /usr/share/xsessions/
+
+
 #nvm
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
 

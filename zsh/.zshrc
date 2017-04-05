@@ -34,9 +34,7 @@ fi
 
 export TERM=xterm-256color
 
-export JAVA_HOME='/usr/lib/jvm/java-7-openjdk-amd64/jre'
-export EC2_HOME='/usr/local/ec2/ec2-api-tools-1.7.5.1'
-export PATH=$PATH:$EC2_HOME/bin
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export PATH=$PATH:~/.config/bspwm/panel
