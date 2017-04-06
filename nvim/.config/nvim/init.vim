@@ -4,6 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 
   Plug 'tpope/vim-sensible'
   Plug 'tpope/vim-fugitive'
+  Plug 'tpope/vim-markdown'
   Plug 'kien/ctrlp.vim'
   Plug 'bling/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
@@ -233,6 +234,7 @@ let NERDTreeIgnore = ["\.pyc$"]
 " Colorscheme
 colorscheme kalisi
 set background=dark
+set t_Co=256
 
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']

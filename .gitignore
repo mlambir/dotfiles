@@ -1,3 +1,5 @@
 nvim/.config/nvim/plugged/**
 nvim/.config/nvim/shada/**
 nvim/.config/nvim/.netrwhist
+
+*.log

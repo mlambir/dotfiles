@@ -23,8 +23,7 @@ if ! zgen saved; then
   # Syntax highlighting bundle.
   zgen load zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions
-  
-  zgen load zsh-users/zsh-completions
+  zgen load zsh-users/zsh-autosuggestions
 
   zgen oh-my-zsh themes/agnoster
 

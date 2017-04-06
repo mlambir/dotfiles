@@ -2,7 +2,8 @@
 
 PANEL_FIFO=/tmp/panel-fifo
 PANEL_HEIGHT=24
-PANEL_FONT="-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
+PANEL_FONT="Inconsolata-10"
+PANEL_ICON_FONT="FontAwesome-10"
 PANEL_WM_NAME=bspwm_panel
 export PANEL_FIFO PANEL_HEIGHT PANEL_FONT PANEL_WM_NAME
 
@@ -13,27 +14,93 @@ fi
 
 trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 
+I_BAT=
+
+I_BAT_0=
+I_BAT_1=
+I_BAT_2=
+I_BAT_3=
+I_BAT_4=
+I_BOLT=
+
+I_CLOCK=
+I_CAL=
+I_WIFI=
+
+I_VOL_OFF=
+I_VOL_ON=
+
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
 bspc config top_padding $PANEL_HEIGHT
 bspc subscribe report > "$PANEL_FIFO" &
 xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
-clock -sf 'S%a %D %H:%M' > "$PANEL_FIFO" &
+clock -sf 'CAL'$I_CAL' %a %D' > "$PANEL_FIFO" &
+clock -sf 'CLOCK'$I_CLOCK' %H:%M' > "$PANEL_FIFO" &
 
 # battery
 while true;
 do
   BAT_LEVEL=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "percentage" | sed 's/\s//g' | cut -d: -f2 | sed 's/%//')
-  echo 'B Battery: '$BAT_LEVEL'%'
-  sleep 30;
+  BAT_STATE=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep "state" | sed 's/\s//g' | cut -d: -f2)
+  #echo 'B'$I_BAT  $BAT_LEVEL'%'
+
+  if [ "$BAT_STATE" != "discharging" ]
+  then
+    BAT_CHARGING=$I_BOLT
+  else
+    BAT_CHARGING=
+  fi
+
+  if [ $BAT_LEVEL -lt 20 ]
+  then
+    echo 'B'$I_BAT_0  $BAT_LEVEL'%' $BAT_CHARGING
+  elif [ $BAT_LEVEL -lt 40 ]
+  then
+    echo 'B'$I_BAT_1  $BAT_LEVEL'%' $BAT_CHARGING
+  elif [ $BAT_LEVEL -lt 60 ]
+  then
+    echo 'B'$I_BAT_2  $BAT_LEVEL'%' $BAT_CHARGING
+  elif [ $BAT_LEVEL -lt 80 ]
+  then
+    echo 'B'$I_BAT_3  $BAT_LEVEL'%' $BAT_CHARGING
+  else
+    echo 'B'$I_BAT_4  $BAT_LEVEL'%' $BAT_CHARGING
+  fi
+
+  sleep 5;
 done > "$PANEL_FIFO" &
 
+# alsa volume
+while true;
+do
+ALSA_VOLUME=$(amixer -c 0 get Master | grep 'Mono: Playback' | grep -o '...%' | sed 's/\[//' | sed 's/%//' | sed 's/ //')
+ALSA_STATE=$(amixer -c 0 get Master | grep 'Mono: Playback' | grep -o '\[on]')
 
+if [ $ALSA_STATE ]
+then
+  echo 'V'$I_VOL_ON $ALSA_VOLUME
+else
+  echo 'V'$I_VOL_OFF
+fi
+  sleep 0.1;
+
+done > $PANEL_FIFO &
+
+# wifi
+while true;
+do
+WIFI_SSID=$(iw wlp1s0 link | grep 'SSID' | sed 's/SSID: //' | sed 's/\t//')
+WIFI_SIGNAL=$(iw wlp1s0 link | grep 'signal' | sed 's/signal: //' | sed 's/ dBm//' | sed 's/\t//')
+WIFI_IP=$(ifconfig wlp1s0 | grep "inet " | cut -d' ' -f10)
+echo WIFI$I_WIFI $WIFI_SSID '-' $WIFI_IP
+  sleep 10
+done > $PANEL_FIFO &
 
 . panel_colors
 
-panel_bar < "$PANEL_FIFO" | lemonbar -a 32 -n "$PANEL_WM_NAME" -g x$PANEL_HEIGHT -f "$PANEL_FONT" -F "$COLOR_DEFAULT_FG" -B "$COLOR_DEFAULT_BG" | sh &
+panel_bar < "$PANEL_FIFO" | lemonbar -a 32 -n "$PANEL_WM_NAME" -g x$PANEL_HEIGHT -f "$PANEL_FONT" -f "$PANEL_ICON_FONT" -F "$COLOR_DEFAULT_FG" -B "$COLOR_DEFAULT_BG" | sh &
 
 wid=$(xdo id -a "$PANEL_WM_NAME")
 tries_left=20
