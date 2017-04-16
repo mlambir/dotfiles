@@ -7,31 +7,22 @@
 num_mon=$(bspc query -M | wc -l)
 
 while read -r line ; do
+  #(>&2 echo "$line")
   case $line in
-    V*)
-      # volume output
-      volume="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?} %{B-}%{F-}"
-      ;;
+    VOLUME*)
+      volume="${line#VOLUME}" ;;
     WIFI*)
-      # calndar output
-      wifi="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#????} %{B-}%{F-}"
-      ;;
-    CAL*)
-      # calndar output
-      cal="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#???} %{B-}%{F-}"
-      ;;
+      wifi="${line#WIFI}" ;;
+    CALENDAR*)
+      cal="${line#CALENDAR}" ;;
     CLOCK*)
-      # clock output
-      clock="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?????} %{B-}%{F-}"
-      ;;
-    B*)
-      # battery output
-      bat="%{F$COLOR_SYS_FG}%{B$COLOR_SYS_BG} ${line#?} %{B-}%{F-}"
-      ;;
-    T*)
-      # xtitle output
-      title="%{F$COLOR_TITLE_FG}%{B$COLOR_TITLE_BG} ${line#?} %{B-}%{F-}"
-      ;;
+      clock="${line#CLOCK}" ;;
+    BATTERY*)
+      bat="${line#BATTERY}" ;;
+    SHORTCUTS*)
+      shortcuts="${line#SHORTCUTS}" ;;
+    TITLE*)
+      title="${line#TITLE}" ;;
     W*)
       # bspwm's state
       wm=""
@@ -55,7 +46,7 @@ while read -r line ; do
                 BG=$COLOR_FOCUSED_MONITOR_BG
                 ;;
             esac
-            wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:} ${name} %{A}%{B-}%{F-}"
+            wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc monitor -f ${name}:}${name}%{A}%{B-}%{F-}"
             ;;
           [fFoOuU]*)
             case $item in
@@ -94,12 +85,13 @@ while read -r line ; do
             ;;
           [LTG]*)
             # layout, state and flags
-            wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG} ${name} %{B-}%{F-}"
+            wm="${wm}%{F$COLOR_STATE_FG}%{B$COLOR_STATE_BG}${name}%{B-}%{F-}"
             ;;
         esac
         shift
       done
       ;;
   esac
-  printf "%s\n" "%{l}${wm}%{c}${title}%{r}${wifi} | ${bat} | ${volume} | ${cal} | ${clock}"
+  #printf "%s\n" "%{l}${wm}%{c}${title}%{r}${wifi} | ${bat} | ${volume} | ${cal} | ${clock} "
+  printf "%s\n" "%{l}${wm} | ${title} %{r} | ${shortcuts} | ${wifi} | ${bat} | ${volume} | ${cal} | ${clock} "
 done
