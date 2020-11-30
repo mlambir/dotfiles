@@ -1,1 +1,6 @@
-export PATH=$PATH:~/.config/bspwm/panel
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export EDITOR=nvim
+
+# Secret
+[ -f ~/.secrets ] && source ~/.secrets
