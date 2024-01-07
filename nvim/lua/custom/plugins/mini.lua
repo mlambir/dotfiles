@@ -12,7 +12,7 @@ return {
 				go_in_plus = '<CR>',
 			},
 		})
-		require('mini.jump').setup()
+		-- require('mini.jump').setup()
 		require('mini.move').setup()
 
 		vim.keymap.set('n', "<leader>e", minifiles_toggle, { desc = "File explorer" })
