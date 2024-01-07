@@ -1,0 +1,6 @@
+- link:
+    ~/.config/nvim: nvim
+    ~/.zshrc: zshrc
+    ~/.tmux.conf: tmux.conf
+    ~/.config/alacritty: alacritty
+
