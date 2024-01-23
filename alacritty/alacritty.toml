@@ -1,6 +1,9 @@
 [font]
-size = 8.0
+size = 14.0
 
 [font.normal]
 family = "Hack Nerd Font"
-style = "Light"
+
+[window.padding]
+x = 10
+y=10
