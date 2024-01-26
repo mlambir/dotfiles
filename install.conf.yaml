@@ -3,4 +3,5 @@
     ~/.zshrc: zshrc
     ~/.tmux.conf: tmux.conf
     ~/.config/alacritty: alacritty
+    ~/.config/kitty: kitty
 
