@@ -215,19 +215,6 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  {
-    "aserowy/tmux.nvim",
-    config = function()
-      return require("tmux").setup({
-        navigation = {
-          enable_default_keybindings = true,
-        },
-        resize = {
-          enable_default_keybindings = true,
-        }
-      })
-    end
-  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
