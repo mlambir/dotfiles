@@ -151,12 +151,21 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   -- Theme inspired by Atom
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'onedark'
+  --   end,
+  -- },
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    "HoNamDuong/hybrid.nvim",
+    lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      require("hybrid").setup({})
+      vim.cmd.colorscheme 'hybrid'
     end,
   },
 
@@ -167,9 +176,17 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        -- theme = 'onedark',
         component_separators = '|',
         section_separators = '',
+      },
+      sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
       },
     },
   },
