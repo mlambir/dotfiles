@@ -1,9 +1,18 @@
+local function fg(name)
+	local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
+	local fgc = hl and hl.foreground
+	return fgc and { fg = string.format("#%06x", fgc) } or nil
+end
+
 local function oil_dir()
   if vim.bo.filetype == "oil" then
     return require("oil").get_current_dir()
   end
   return ""
 end
+
+local COPILOT_ICON = " "
+
 return {
   -- Set lualine as statusline
   'nvim-lualine/lualine.nvim',
@@ -33,9 +42,8 @@ return {
     }
     table.insert(opts.sections.lualine_x, 2, {
       function()
-        local icon = require("lazyvim.config").icons.kinds.Copilot
         local status = require("copilot.api").status.data
-        return icon .. (status.message or "")
+        return COPILOT_ICON .. (status.message or "")
       end,
       cond = function()
         local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
