@@ -392,6 +392,9 @@ vim.defer_fn(function()
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
+    sync_install = false,
+    ignore_install = {},
+    modules = {},
 
     highlight = { enable = true },
     indent = { enable = true },
@@ -453,7 +456,7 @@ end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -490,6 +493,29 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
+  if client.name == "tsserver" then
+    nmap('<leader>co',
+      function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.organizeImports.ts" },
+            diagnostics = {},
+          },
+        })
+      end, '[O]rganize Imports')
+    nmap('<leader>cR',
+      function()
+        vim.lsp.buf.code_action({
+          apply = true,
+          context = {
+            only = { "source.removeUnused.ts" },
+            diagnostics = {},
+          },
+        })
+      end, '[R]emove Unused Imports')
+  end
+
   -- Create a command `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
@@ -503,7 +529,6 @@ require('which-key').register {
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
   ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-  ['<leader>s'] = { name = '[S]pectre', _ = 'which_key_ignore' },
   ['<leader>f'] = { name = '[F]ind', _ = 'which_key_ignore' },
   ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
@@ -543,6 +568,11 @@ local servers = {
       telemetry = { enable = false },
       -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
       -- diagnostics = { disable = { 'missing-fields' } },
+    },
+  },
+  tsserver = {
+    completions = {
+      completeFunctionCalls = true,
     },
   },
 }
@@ -600,6 +630,7 @@ cmp.setup {
     documentation = cmp.config.window.bordered(),
   },
   formatting = {
+    expandable_indicator = true,
     format = lspkind.cmp_format({
       mode = 'symbol',
       maxwidth = 50,
