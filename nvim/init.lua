@@ -625,6 +625,9 @@ local has_words_before = function()
 end
 
 cmp.setup {
+  experimental = {
+    ghost_text = true,
+  },
   window = {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
