@@ -8,6 +8,11 @@ config.color_scheme = "Hybrid"
 config.leader = { key = "a", mods = "CTRL", timeout_milliseconds = 1000 }
 config.tab_bar_at_bottom = true
 
+config.colors = {
+	selection_bg = "#b7bcba",
+	selection_fg = "#161719",
+}
+
 
 local act = wezterm.action
 
