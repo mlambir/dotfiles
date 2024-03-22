@@ -272,10 +272,13 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.tabstop = 4      -- A TAB character looks like 4 spaces
-vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a TAB character
-vim.o.softtabstop = 4  -- Number of spaces inserted instead of a TAB character
-vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
+vim.o.tabstop = 4       -- A TAB character looks like 4 spaces
+vim.o.expandtab = true  -- Pressing the TAB key will insert spaces instead of a TAB character
+vim.o.softtabstop = 4   -- Number of spaces inserted instead of a TAB character
+vim.o.shiftwidth = 4    -- Number of spaces inserted when indenting
+
+vim.o.splitbelow = true -- Horizontal splits will automatically be below
+vim.o.splitright = true -- Vertical splits will automatically be to the right
 
 -- [[ Basic Keymaps ]]
 
@@ -392,10 +395,10 @@ vim.keymap.set('n', '<leader>fr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'markdown' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-    auto_install = false,
+    auto_install = true,
     sync_install = false,
     ignore_install = {},
     modules = {},
@@ -487,7 +490,7 @@ local on_attach = function(client, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  vim.keymap.set('i', '<C-k>', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature Documentation' })
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')

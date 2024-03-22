@@ -1,7 +1,7 @@
 local function fg(name)
-	local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
-	local fgc = hl and hl.foreground
-	return fgc and { fg = string.format("#%06x", fgc) } or nil
+  local hl = vim.api.nvim_get_hl and vim.api.nvim_get_hl(0, { name = name })
+  local fgc = hl and hl.foreground
+  return fgc and { fg = string.format("#%06x", fgc) } or nil
 end
 
 local function oil_dir()
@@ -19,7 +19,7 @@ return {
   -- See `:help lualine.txt`
   event = "VeryLazy",
   opts = function()
-    local opts =  {
+    local opts = {
       options = {
         icons_enabled = false,
         component_separators = '|',
@@ -28,7 +28,7 @@ return {
       sections = {
         lualine_a = { 'mode' },
         lualine_b = { 'branch' },
-        lualine_c = { 'filename', oil_dir },
+        lualine_c = { 'filename', oil_dir, require('arrow.statusline').text_for_statusline_with_icons },
         lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = { 'progress' },
         lualine_z = { 'location' },
@@ -46,7 +46,7 @@ return {
         return COPILOT_ICON .. (status.message or "")
       end,
       cond = function()
-        local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
+        local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
         return ok and #clients > 0
       end,
       color = function()
