@@ -27,6 +27,8 @@ antigen apply
 alias rr='fd -HI -g .git -t d --base-directory=$HOME| grep -v "^\." |  rev | cut -c 6- | rev | sort 2>/dev/null > $HOME/.repos'
 alias r='cd $(cat $HOME/.repos | fzf)'
 
+export PATH="$HOME/bin/:$PATH"
+
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/mariano.lambir/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
@@ -35,3 +37,5 @@ export PATH=/Users/mariano.lambir/.meteor:$PATH
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(gh copilot alias -- zsh)"
+export PATH=$PATH:$(go env GOPATH)/bin

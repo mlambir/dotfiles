@@ -541,7 +541,7 @@ require('which-key').register {
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
   ['<leader>x'] = { name = '[X]Trouble', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]ession', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = '[H]arpoon', _ = 'which_key_ignore' },
+  ['<leader>h'] = { name = 'Grapple', _ = 'which_key_ignore' },
 }
 -- register which-key VISUAL mode
 -- required for visual <leader>hs (hunk stage) to work
@@ -609,6 +609,11 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+}
+
+require('lspconfig').zls.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
 }
 
 -- [[ Configure nvim-cmp ]]
